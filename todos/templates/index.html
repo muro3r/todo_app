@@ -1,0 +1,25 @@
+<h3>Todos</h3>
+
+<h4>Create item.</h4>
+<form action="{% url 'todos:create' %}" method="post">
+  {% csrf_token %}
+  <input type="text" name="title">
+  <input type="submit" value="Create Item">
+</form>
+
+
+<hr>
+
+<form action="{% url 'todos:update' %}" method="post">
+  {% csrf_token %}
+  <ul>
+    {% for todo in todos %}
+    <li>
+      <input type="checkbox" name="todo" id="todo{{ todo.id }}" value="{{ todo.id }}" {% if todo.status %}
+        checked{% endif %}>
+      <label for="todo{{ todo.id }}">{{ todo }}</label>
+    </li>
+    {% endfor %}
+  </ul>
+  <input type="submit" value="Update">
+</form>
